@@ -2,27 +2,27 @@
 import { ref, onMounted } from 'vue'
 import { supabase } from './lib/supabaseClient'
 
-const countries = ref([])
+const players = ref([])
 
-async function getCountries() {
-  const { data } = await supabase.from('countries').select()
-  countries.value = data
+async function getPlayers() {
+  const { data } = await supabase.from('userbasicdata').select()
+  players.value = data
 }
 
 onMounted(() => {
-  getCountries()
+  getPlayers()
 })
 </script>
 
 <template>
   <ul>
-    <li v-for="country in countries" :key="country.id">{{ country.name }}</li>
+    <li v-for="player in players" :key="player.id">{{ player.username }}</li>
   </ul>
 </template>
 
 <style scoped>
 header {
-  line-height: 1.5;
+  line-height: 1.7;
   max-height: 100vh;
 }
 
