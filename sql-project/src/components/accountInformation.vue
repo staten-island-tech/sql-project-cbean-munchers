@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <form class="form-widget" @submit.prevent="updateProfile"></form>
 </template>
 
 <script setup>
