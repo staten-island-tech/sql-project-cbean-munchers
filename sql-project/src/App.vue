@@ -16,7 +16,12 @@ onMounted(() => {
 
 <template>
   <ul>
-    <li v-for="player in players" :key="player.id">{{ player.username }}</li>
+    <input field="text" placeholder="Name" />
+    <button type="submit" value="submit"></button>
+    <li v-for="player in players" :key="player.id">
+      {{ player.username }}
+      {{ player.peak_rank }}
+    </li>
   </ul>
 </template>
 
