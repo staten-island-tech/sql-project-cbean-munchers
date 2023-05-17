@@ -1,13 +1,13 @@
 <template>
-  <form class="form-widget" @submit.prevent="updateProfile"></form>
+  <form class="form-widget" @submit.prevent="updateProfile">
+    <div>{{ data }}</div>
+  </form>
 </template>
 
 <script setup>
 import { supabase } from '../lib/supabaseClient.js'
-import { onMounted, ref, toRefs } from 'vue'
+import { onMounted, ref } from 'vue'
 
-const props = defineProps(['session'])
-const { session } = toRefs(props)
 const loading = ref(true)
 const username = ref('')
 const tagline = ref('')
@@ -21,13 +21,11 @@ onMounted(() => {
 async function getProfile() {
   try {
     loading.value = true
-    const { user } = session.value
 
     let { data, userbasicdata, error } = await supabase
       .from('userbasicdata')
       .select(`username, tagline, peakRank, rank`)
-      .eq('id', user.id)
-      .single()
+      .eq('peng', '#0001', 'Diamond 3', 'Diamond 2')
 
     if (error && userbasicdata !== 406) throw error
 

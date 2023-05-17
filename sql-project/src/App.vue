@@ -1,11 +1,13 @@
 <script setup>
+import inputProfile from './components/inputProfile.vue'
+import accountInformation from './components/accountInformation.vue'
 import { ref, onMounted } from 'vue'
 import { supabase } from './lib/supabaseClient'
 
 const players = ref([])
 
 async function getPlayers() {
-  const { data } = await supabase.from('userbasicdata').select()
+  let { data } = await supabase.from('userbasicdata').select('username')
   players.value = data
 }
 
@@ -21,6 +23,7 @@ onMounted(() => {
     <li v-for="player in players" :key="player.id">
       {{ player.username }}
       {{ player.peak_rank }}
+      {{}}
     </li>
   </ul>
 </template>
