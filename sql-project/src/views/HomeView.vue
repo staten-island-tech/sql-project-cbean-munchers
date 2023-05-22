@@ -1,6 +1,4 @@
-<script setup>
-import InputProfile from '../components/inputProfile.vue'
-</script>
+<script setup></script>
 
 <template>
   <main>

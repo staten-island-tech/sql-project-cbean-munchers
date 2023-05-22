@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { supabase } from '../lib/supabaseClient.js'
+import { supabase } from './lib/supabase.js'
 import { onMounted, ref } from 'vue'
 
 const loading = ref(true)
