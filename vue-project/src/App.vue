@@ -13,18 +13,18 @@ onMounted(() => {
   getData()
 })
 
-function filteredList() {
-  return data.filter((userbasicdata) =>
-    userbasicdata.username.toLowerCase().includes(input.value.toLowerCase())
-  )
-}
+// function filteredList() {
+//   return data.filter((userbasicdata) =>
+//     userbasicdata.username.toLowerCase().includes(input.value.toLowerCase())
+//   )
+// }
 </script>
 
 <template>
   <ul>
     <input type="text" v-model="search" placeholder="Search users..." />
-    <div v-for="username in filteredList" :key="user.id">
-      <p>{{ username.user }}</p>
+    <div v-for="user in users" :key="user.id">
+      <Routerlink to="/"> {{ user.username }} </Routerlink>
     </div>
   </ul>
 </template>
