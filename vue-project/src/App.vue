@@ -2,11 +2,12 @@
 import { ref, onMounted } from 'vue'
 import { supabase } from './lib/supabaseClient'
 
-const users = ref([])
+const basicdata = ref([])
 
 async function getData() {
   const { data } = await supabase.from('userbasicdata').select()
-  users.value = data
+  basicdata.value = data
+  console.log(basicdata)
 }
 
 onMounted(() => {
@@ -23,7 +24,7 @@ onMounted(() => {
 <template>
   <ul>
     <input type="text" v-model="search" placeholder="Search users..." />
-    <div v-for="user in users" :key="user.id">
+    <div v-for="user in basicdata" :key="user.id">
       <Routerlink to="/"> {{ user.username }} </Routerlink>
     </div>
   </ul>
