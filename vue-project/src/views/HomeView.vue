@@ -46,7 +46,7 @@ onMounted(() => {
       <p>{{ user.kills }}kills</p>
       <p>{{ user.deaths }}deaths</p>
       <p>{{ user.assists }}assists</p>
-      <p>{{ user.hspercentage }}%</p>
+      <p>{{ user.hspercentage }}headshot%</p>
       <p>{{ user.wins }}wins</p>
       <p>{{ user.kd_ratio }}k/d</p>
     </div>
