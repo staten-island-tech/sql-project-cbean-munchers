@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2>Sign up for an account</h2>
-    <form @submit.prevent="handleSignup">
+    <h2>Sign in to your account</h2>
+    <form @submit.prevent="handleSignin">
       <div>
         <input placeholder="email" id="email" type="email" v-model="email" />
       </div>
@@ -9,28 +9,24 @@
         <input placeholder="password" id="password" type="password" v-model="password" />
       </div>
       <div>
-        <button type="submit">Sign up</button>
+        <button type="submit">Sign in</button>
       </div>
     </form>
-    <div class="signin">
-      <RouterLink to="/about">Click here if you have an account </RouterLink>
-    </div>
   </div>
 </template>
 
 <script>
-import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
-import { supabase } from './lib/supabaseClient'
+import { supabase } from '../lib/supabaseClient'
 
 export default {
   setup() {
     const email = ref('')
     const password = ref('')
 
-    const handleSignup = async () => {
+    const handleSignin = async () => {
       try {
-        const { error } = await supabase.auth.signUp({
+        const { error } = await supabase.auth.signIn({
           email: email.value,
           password: password.value
         })
@@ -43,7 +39,7 @@ export default {
     return {
       email,
       password,
-      handleSignup
+      handleSignin
     }
   }
 }
