@@ -13,7 +13,7 @@
       </div>
     </form>
     <div class="signin">
-      <RouterLink to="/about">Click here if you have an account </RouterLink>
+      <span>Click here if you have an account <a href="SignInPage"></a> </span>
     </div>
   </div>
 </template>
