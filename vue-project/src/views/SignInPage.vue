@@ -12,7 +12,7 @@
         <button type="submit">Sign in</button>
       </div>
       <div class="signup">
-        <span>Click here to make an account <a href="signuppage"></a> </span>
+        <span><a href="SignUpPage">Click here to make an account</a> </span>
       </div>
     </form>
   </div>
