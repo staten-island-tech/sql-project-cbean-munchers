@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { supabase } from './lib/supabase.js'
-
+import inputInfo from './components/inputInfo.vue'
 const players = ref([])
 const ranks = ref([])
 
