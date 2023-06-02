@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h2>Sign in to your account</h2>
+    <h2>Sign up for an account</h2>
     <div class="container">
       <div class="screen">
         <div class="screen__content">
-          <form class="login" @submit.prevent="handleSignin">
+          <form class="login" @submit.prevent="handleSignup">
             <div class="login__field">
               <i class="login__icon fas fa-user"></i>
               <input
@@ -27,7 +27,7 @@
               />
             </div>
             <button type="submit" class="button login__submit">
-              <span class="button__text">Sign In</span>
+              <span class="button__text">Sign Up</span>
               <i class="button__icon fas fa-chevron-right"></i>
             </button>
           </form>
@@ -52,9 +52,9 @@ export default {
     const email = ref('')
     const password = ref('')
 
-    const handleSignin = async () => {
+    const handleSignup = async () => {
       try {
-        const { error } = await supabase.auth.signIn({
+        const { error } = await supabase.auth.signUp({
           email: email.value,
           password: password.value
         })
@@ -67,7 +67,7 @@ export default {
     return {
       email,
       password,
-      handleSignin
+      handleSignup
     }
   }
 }

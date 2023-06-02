@@ -1,12 +1,23 @@
-import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import supabase from '../lib/supabaseClient'
+export const useUserStore = defineStore('auth', {
+  state: () => {
+    return {
+      currentuser: null
+    }
+  },
 
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
+  actions: {
+    loaduser() {
+      this.currentuser = supabase.auth.user()
+    }
+  },
+  clearuser() {
+    this.currentuser = null
+  },
+  getters: {
+    isAuthenticated() {
+      return !!this.currentuser
+    }
   }
-
-  return { count, doubleCount, increment }
 })
