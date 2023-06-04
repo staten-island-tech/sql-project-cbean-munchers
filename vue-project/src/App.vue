@@ -16,6 +16,6 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <style>
 #signup {
-  border-radius: 3px;
+  margin: 20px;
 }
-</style>
+</style> 
