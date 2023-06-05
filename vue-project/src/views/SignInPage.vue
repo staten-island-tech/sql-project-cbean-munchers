@@ -6,7 +6,7 @@
         <div class="screen__content">
           <form class="login" @submit.prevent="handleSignin">
             <div class="login__field">
-              <i class="login__icon fas fa-user"></i>
+              <i class="login_icon"></i>
               <input
                 type="email"
                 typr="email"
@@ -17,7 +17,7 @@
               />
             </div>
             <div class="login__field">
-              <i class="login__icon fas fa-lock"></i>
+              <i class="login__icon"></i>
               <input
                 id="password"
                 type="password"
@@ -28,7 +28,7 @@
             </div>
             <button type="submit" class="button login__submit">
               <span class="button__text">Sign In</span>
-              <i class="button__icon fas fa-chevron-right"></i>
+              <i class="button_icon"></i>
             </button>
           </form>
         </div>
