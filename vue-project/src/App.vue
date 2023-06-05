@@ -18,4 +18,4 @@ import { RouterLink, RouterView } from 'vue-router'
 #signup {
   margin: 20px;
 }
-</style> 
+</style>
