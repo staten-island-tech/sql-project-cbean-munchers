@@ -1,13 +1,13 @@
 <template>
   <div class="foo">
     <form id="userInformation">
-      <input field="text" placeholder="KD" />
+      <input field="text" placeholder="reason going" />
+      <input field="text" placeholder="date going" />
+      <input field="text" placeholder="time going" />
     </form>
   </div>
 </template>
 
-<script>
-export default {}
-</script>
+<script setup></script>
 
 <style></style>

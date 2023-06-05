@@ -21,21 +21,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <ul>
-    <input field="text" placeholder="Name" />
-    <button type="submit" value="submit"></button>
-    <li v-for="player in players" :key="player.id">
-      {{ player.username }}
-      {{ player.peak_rank }}
-    </li>
-  </ul>
-  <div>
-    <ul>
-      <li v-for="rank in ranks" :key="rank.id">
-        {{ rank.current_rank }}
-      </li>
-    </ul>
-  </div>
+  <div></div>
 </template>
 
 <style></style>
