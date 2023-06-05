@@ -65,16 +65,16 @@ export default {
       }
     }
 
-    async function createBooking() {
-      const { error, data } = await supabase.from('bookings').insert({
-        email: email.value,
-        useruid: useruid.value
-      })
-      if (error) {
-        console.log(error)
-      }
-      console.log(data)
-    }
+    // async function createBooking() {
+    //   const { error, data } = await supabase.from('bookings').insert({
+    //     email: email.value,
+    //     useruid: useruid.value
+    //   })
+    //   if (error) {
+    //     console.log(error)
+    //   }
+    //   console.log(data)
+    // }
 
     return {
       email,
