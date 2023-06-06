@@ -1,6 +1,5 @@
 <script setup>
-import inputInfo from '../components/inputInfo.vue'
-import BookingInfo from '../components/BookingInfo.vue'
+import AppointmentInfo from '../components/AppointmentInfo.vue'
 import { ref } from 'vue'
 import { supabase } from '../lib/supabase.js'
 
@@ -36,7 +35,25 @@ getAllAppointments()
 </script>
 
 <template>
+  <AppointmentInfo
+    v-for="appointment in allAppointments"
+    :key="appointment"
+    :name="appointment.patient_name"
+    :description="appointment.reason_going"
+    :time="appointment.time_going"
+    :date="appointment.date_going"
+  />
   <div class="burger">
-    <form class="appointment-form"></form>
+    <form class="appointment-form">
+      <label for="patient_name"> Your Name</label>
+      <input v-model="name" id="name" type="text" />
+      <label for="reason"> Reason for going </label>
+      <input v-model="reason" id="reason" type="text" />
+      <label for="time"> Time you are going </label>
+      <input v-model="time" id="time" type="text" />
+      <label for="date"> Date you are going </label>
+      <input v-model="date" id="date" type="text" />
+      <button @click="createAppointment" type="button">Submit Appointment</button>
+    </form>
   </div>
 </template>
