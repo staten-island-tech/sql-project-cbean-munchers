@@ -26,6 +26,7 @@
                 placeholder="Password"
               />
             </div>
+            <button @click="SignUp" type="submit" class="button login__submit">
               <span class="button__text">Sign Up</span>
               <i class="button_icon"></i>
             </button>
