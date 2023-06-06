@@ -1,4 +1,4 @@
-<!-- <script setup>
+<!-- <script>
 import { ref, onMounted } from 'vue'
 import { supabase } from '../lib/supabaseClient'
 
@@ -58,3 +58,19 @@ onMounted(() => {
     </div>
   </ul>
 </template> -->
+
+<template>
+  <div>
+    <h1>SUP</h1>
+  </div>
+</template>
+
+<script>
+export default {
+  setup() {
+    return {}
+  }
+}
+</script>
+
+<style lang="scss" scoped></style>

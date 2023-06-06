@@ -26,7 +26,7 @@
                 placeholder="Password"
               />
             </div>
-            <button type="submit" class="button login__submit">
+            <button @click="logIn()" type="submit" class="button login__submit">
               <span class="button__text">Sign In</span>
               <i class="button_icon"></i>
             </button>
@@ -44,9 +44,6 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import { supabase } from '../lib/supabaseClient'
-
 export default {
   setup() {
     const email = ref('')
@@ -54,7 +51,7 @@ export default {
 
     const handleSignin = async () => {
       try {
-        const { error } = await supabase.auth.signIn({
+        const { error } = await supabase.auth.signInWithPassword({
           email: email.value,
           password: password.value
         })
@@ -72,6 +69,31 @@ export default {
   }
 }
 </script>
+<!-- <script>
+import { ref } from 'vue'
+import { supabase } from '../lib/supabaseClient'
+
+const email = ref('')
+const password = ref('')
+
+async function logIn() {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value
+  })
+  if (error) {
+    console.log(error)
+  }
+  console.log(data)
+  user.getUser()
+  router.push('/home')
+}
+return {
+  email,
+  password,
+  handleSignin
+}
+</script> -->
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
