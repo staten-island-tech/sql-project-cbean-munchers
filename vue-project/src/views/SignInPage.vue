@@ -26,7 +26,7 @@
                 placeholder="Password"
               />
             </div>
-            <button @click="logIn()" type="submit" class="button login__submit">
+            <button @click="login" type="submit" class="button login__submit">
               <span class="button__text">Sign In</span>
               <i class="button_icon"></i>
             </button>
@@ -44,6 +44,24 @@
 </template>
 
 <script>
+import { ref } from 'vue'
+import { supabase } from '../lib/supabaseClient'
+import router from '../router'
+// import { useUserStore } from '../stores/counter'
+
+async function login() {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value
+  })
+  if (error) {
+    console.log(error)
+  }
+  console.log(data)
+  user.getUser()
+  router.push('/home')
+}
+
 export default {
   setup() {
     const email = ref('')
@@ -60,7 +78,6 @@ export default {
         alert(error.error_description || error.message)
       }
     }
-
     return {
       email,
       password,
