@@ -83,55 +83,8 @@ export default {
   }
 }
 
-// export default {
-//   setup() {
-//     const email = ref('')
-//     const password = ref('')
-
-//     const handleSignin = async () => {
-//       try {
-//         const { error } = await supabase.auth.signInWithPassword({
-//           email: email.value,
-//           password: password.value
-//         })
-//         if (error) throw error
-//       } catch (error) {
-//         alert(error.error_description || error.message)
-//       }
-//     }
-//     return {
-//       email,
-//       password,
-//       handleSignin
-//     }
-//   }
-// }
 </script>
-<!-- <script>
-import { ref } from 'vue'
-import { supabase } from '../lib/supabaseClient'
 
-const email = ref('')
-const password = ref('')
-
-async function logIn() {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email.value,
-    password: password.value
-  })
-  if (error) {
-    console.log(error)
-  }
-  console.log(data)
-  user.getUser()
-  router.push('/home')
-}
-return {
-  email,
-  password,
-  handleSignin
-}
-</script> -->
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');

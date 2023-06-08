@@ -54,10 +54,6 @@ async function signUp(supabase, userEmail, userPassword) {
       email: userEmail,
       password: userPassword
     })
-    await supabase.auth.signUp({
-      email: userEmail,
-      password: userPassword
-    })
 
     let {
       data: { user }
@@ -87,31 +83,6 @@ export default {
     }
   }
 }
-
-// export default {
-//   setup() {
-//     const email = ref('')
-//     const password = ref('')
-
-//     const handleSignup = async () => {
-//       try {
-//         const { error } = await supabase.auth.signUp({
-//           email: email.value,
-//           password: password.value
-//         })
-//         if (error) throw error
-//       } catch (error) {
-//         alert(error.error_description || error.message)
-//       }
-//     }
-
-//     return {
-//       email,
-//       password,
-//       handleSignup
-//     }
-//   }
-// }
 </script>
 
 <style>
