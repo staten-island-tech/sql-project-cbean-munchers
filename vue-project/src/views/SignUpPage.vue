@@ -26,7 +26,7 @@
                 placeholder="Password"
               />
             </div>
-            <button @click="signup" value="Sign Up" type="submit" class="button login__submit">
+            <button @click="signUp" value="Sign Up" type="submit" class="button login__submit">
               <span class="button__text">Sign Up</span>
               <i class="button_icon"></i>
             </button>
@@ -67,7 +67,7 @@ async function signUp(supabase, userEmail, userPassword) {
 
 export default {
   methods: {
-    async signup(a) {
+    async signUp(a) {
       a.preventDefault()
 
       let userEmail = document.getElementById('email').value
