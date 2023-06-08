@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import supabase from './lib/supabase.js'
-export const useUserStore = defineStore('auth', {
+import supabase from '../components/supabase.js'
+export const UserStore = defineStore('user', {
   state: () => {
     return {
-      currentUser: null,
+      user: null,
       location: null
     }
   },

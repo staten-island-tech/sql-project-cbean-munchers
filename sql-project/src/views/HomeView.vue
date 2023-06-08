@@ -1,7 +1,7 @@
 <script setup>
 import AppointmentInfo from '../components/AppointmentInfo.vue'
 import { ref } from 'vue'
-import { supabase } from '../lib/supabase.js'
+import { supabase } from '../components/supabase.js'
 
 const patient_name = ref('')
 const reason_going = ref('')
