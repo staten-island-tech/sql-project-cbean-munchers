@@ -4,7 +4,7 @@
     <div class="container">
       <div class="screen">
         <div class="screen__content">
-          <form class="login" @submit.prevent="handleSignin">
+          <form class="login" >
             <div class="login__field">
               <i class="login_icon"></i>
               <input
@@ -26,7 +26,7 @@
                 placeholder="Password"
               />
             </div>
-            <button type="submit" class="button login__submit">
+            <button @click="login" type="submit" class="button login__submit">
               <span class="button__text">Sign In</span>
               <i class="button_icon"></i>
             </button>
@@ -44,47 +44,68 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { useUserStore } from '../stores/counter'
 import { supabase } from '../lib/supabaseClient'
 import router from '../router'
-// import { useUserStore } from '../stores/counter'
 
-async function login() {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email.value,
-    password: password.value
-  })
-  if (error) {
-    console.log(error)
+
+async function signIn(supabase, userEmail, userPassword) {
+  try {
+    await supabase.auth.signInWithPassword({
+      email: userEmail,
+      password: userPassword
+    })
+
+    let {
+      data: { user }
+    } = await supabase.auth.getUser()
+    useUserStore().loadUser(user.id)
+    router.push('requestlog')
+  } catch (error) {
+    console.error(error)
   }
-  console.log(data)
-  user.getUser()
-  router.push('/home')
 }
 
 export default {
-  setup() {
-    const email = ref('')
-    const password = ref('')
+  methods: {
+    async login(a) {
+      a.preventDefault()
 
-    const handleSignin = async () => {
-      try {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: email.value,
-          password: password.value
-        })
-        if (error) throw error
-      } catch (error) {
-        alert(error.error_description || error.message)
+      let userEmail = document.getElementById('email').value
+      let userPassword = document.getElementById('password').value
+
+      if (userEmail === '' || userPassword === '') {
+        console.log('error')
+      } else {
+        signIn(supabase, userEmail, userPassword)
       }
-    }
-    return {
-      email,
-      password,
-      handleSignin
     }
   }
 }
+
+// export default {
+//   setup() {
+//     const email = ref('')
+//     const password = ref('')
+
+//     const handleSignin = async () => {
+//       try {
+//         const { error } = await supabase.auth.signInWithPassword({
+//           email: email.value,
+//           password: password.value
+//         })
+//         if (error) throw error
+//       } catch (error) {
+//         alert(error.error_description || error.message)
+//       }
+//     }
+//     return {
+//       email,
+//       password,
+//       handleSignin
+//     }
+//   }
+// }
 </script>
 <!-- <script>
 import { ref } from 'vue'

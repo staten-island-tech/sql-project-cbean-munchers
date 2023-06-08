@@ -4,7 +4,7 @@
     <div class="container">
       <div class="screen">
         <div class="screen__content">
-          <form class="login" @submit.prevent="handleSignup">
+          <form class="login">
             <div class="login__field">
               <i class="login_icon"></i>
               <input
@@ -26,7 +26,7 @@
                 placeholder="Password"
               />
             </div>
-            <button type="submit" class="button login__submit">
+            <button @click="signup" value="Sign Up" type="submit" class="button login__submit">
               <span class="button__text">Sign Up</span>
               <i class="button_icon"></i>
             </button>
@@ -44,58 +44,74 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { useUserStore } from '../stores/counter'
 import { supabase } from '../lib/supabaseClient'
 import router from '../router'
 
-async function signup() {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email.value,
-    password: password.value
-  })
-  if (error) {
-    console.log(error)
+async function signUp(supabase, userEmail, userPassword) {
+  try {
+    await supabase.auth.signUp({
+      email: userEmail,
+      password: userPassword
+    })
+    await supabase.auth.signInWithPassword({
+      email: userEmail,
+      password: userPassword
+    })
+
+    let {
+      data: { user }
+    } = await supabase.auth.getUser()
+
+    await supabase.from('profiles').insert([{ user_id: user.id, email: userEmail }])
+  } catch (error) {
+    console.error(error)
   }
-  console.log(data)
-  user.getUser()
-  router.push('/home')
 }
 
 export default {
-  setup() {
-    const email = ref('')
-    const password = ref('')
+  methods: {
+    async signup(a) {
+      a.preventDefault()
 
-    const handleSignup = async () => {
-      try {
-        const { error } = await supabase.auth.signUp({
-          email: email.value,
-          password: password.value
-        })
-        if (error) throw error
-      } catch (error) {
-        alert(error.error_description || error.message)
+      let userEmail = document.getElementById('email').value
+      let userPassword = document.getElementById('password').value
+
+      if (userEmail === '' || userPassword === '') {
+        console.error('error')
+      } else {
+        signUp(supabase, userEmail)
+        useUserStore()
+        router.push('home')
       }
-    }
-
-    // async function createBooking() {
-    //   const { error, data } = await supabase.from('bookings').insert({
-    //     email: email.value,
-    //     useruid: useruid.value
-    //   })
-    //   if (error) {
-    //     console.log(error)
-    //   }
-    //   console.log(data)
-    // }
-
-    return {
-      email,
-      password,
-      handleSignup
     }
   }
 }
+
+// export default {
+//   setup() {
+//     const email = ref('')
+//     const password = ref('')
+
+//     const handleSignup = async () => {
+//       try {
+//         const { error } = await supabase.auth.signUp({
+//           email: email.value,
+//           password: password.value
+//         })
+//         if (error) throw error
+//       } catch (error) {
+//         alert(error.error_description || error.message)
+//       }
+//     }
+
+//     return {
+//       email,
+//       password,
+//       handleSignup
+//     }
+//   }
+// }
 </script>
 
 <style>
