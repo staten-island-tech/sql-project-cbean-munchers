@@ -60,13 +60,13 @@ getAllAppointments()
   <div class="burger">
     <form class="appointment-form">
       <label for="patient_name"> Your Name</label>
-      <input v-model="name" id="name" type="text" />
+      <input v-model="patient_name" id="name" type="text" />
       <label for="reason"> Reason for going </label>
-      <input v-model="reason" id="reason" type="text" />
+      <input v-model="reason_going" id="reason" type="text" />
       <label for="time"> Time you are going </label>
-      <input v-model="time" id="time" type="text" />
+      <input v-model="time_going" id="time" type="text" />
       <label for="date"> Date you are going </label>
-      <input v-model="date" id="date" type="text" />
+      <input v-model="date_going" id="date" type="text" />
       <button @click="createAppointment" type="button">Submit Appointment</button>
     </form>
   </div>

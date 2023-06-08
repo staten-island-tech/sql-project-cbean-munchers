@@ -13,9 +13,9 @@
 <script setup>
 import { ref } from 'vue'
 import { supabase } from '../components/supabase.js'
-import { UserStore } from '../stores/store.js'
+import { useAuthStore } from '../stores/store.js'
 import router from '../router/index.js'
-const user = UserStore()
+const user = useAuthStore()
 const email = ref('')
 const password = ref('')
 

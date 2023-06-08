@@ -1,11 +1,11 @@
 <template>
   <form class="signUp_form">
-    <label for="email"> Email</label>
-    <input v-model="email" id="email" type="text" />
-    <label for="password">Password</label>
-    <input v-model="password" id="password" type="password" />
+    <label for="email" placeholder="email"> Email</label>
+    <input v-model="email" id="email" type="text" placeholder="email" />
+    <label for="password" placeholder="password">Password</label>
+    <input v-model="password" id="password" type="password" placeholder="password" />
   </form>
-  <button class="signup-button" @click="signUp()">Sign Up</button>
+  <button type="submit" class="signup-button" @click="signUp()">Sign Up</button>
 </template>
 
 <script setup>

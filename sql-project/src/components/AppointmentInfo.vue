@@ -1,9 +1,9 @@
 <template>
   <div class="appointment">
-    <h1>{{ appointment.patient_name }}</h1>
-    <p>{{ appointment.reason_going }}</p>
-    <p>{{ appointment.date_going }}</p>
-    <p>{{ appointment.time_going }}</p>
+    <h1>{{ patient_name }}</h1>
+    <p>{{ reason_going }}</p>
+    <p>{{ date_going }}</p>
+    <p>{{ time_going }}</p>
   </div>
 </template>
 
