@@ -1,12 +1,13 @@
 <template>
-  <h1>Log In</h1>
-  <form class="login_form">
-    <label for="email">Email</label>
-    <input v-model="email" id="email" type="text" />
-    <label for="password">Password</label>
-    <input v-model="password" id="password" type="password" />
-  </form>
-  <button class="login-button" @click="logIn">Log In</button>
+  <div class="everything">
+    <form class="signin_form">
+      <label for="email">Email</label>
+      <input v-model="email" id="email" type="text" />
+      <label for="password">Password</label>
+      <input v-model="password" id="password" type="password" />
+    </form>
+    <button class="login-button" @click="logIn">Sign In</button>
+  </div>
 </template>
 
 <script setup>
@@ -27,7 +28,17 @@ async function logIn() {
     console.log(error)
   }
   console.log(data)
-  user.getUser()
+  user.loadUser()
   router.push('/home')
 }
 </script>
+
+<style>
+.signin_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+</style>

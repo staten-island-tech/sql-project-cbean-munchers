@@ -5,7 +5,7 @@
     <label for="password">Password</label>
     <input v-model="password" id="password" type="password" />
   </form>
-  <button class="signup-button" @click="signUp">Sign Up</button>
+  <button class="signup-button" @click="signUp()">Sign Up</button>
 </template>
 
 <script setup>
@@ -27,4 +27,12 @@ async function signUp() {
 }
 </script>
 
-<style></style>
+<style>
+.signUp_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+</style>

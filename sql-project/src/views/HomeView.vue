@@ -11,12 +11,14 @@ const time_going = ref('')
 const allAppointments = ref([])
 
 async function createAppointment() {
-  const { error, data } = await supabase.from('appointments').insert({
-    patient_name: patient_name.value,
-    reason_going: reason_going.value,
-    time_going: time_going.value,
-    date_going: date_going.value
-  })
+  const { error, data } = await supabase.from('appointments').insert([
+    {
+      patient_name: patient_name.value,
+      reason_going: reason_going.value,
+      time_going: time_going.value,
+      date_going: date_going.value
+    }
+  ])
   if (error) {
     console.log(error)
   }
@@ -34,14 +36,26 @@ async function getAllAppointments() {
 getAllAppointments()
 </script>
 
+<style>
+.appointment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+</style>
+
 <template>
+  <h1>Home</h1>
   <AppointmentInfo
-    v-for="appointment in allAppointments"
+    v-for="(appointment, index) in allAppointments"
     :key="appointment"
-    :name="appointment.patient_name"
-    :description="appointment.reason_going"
-    :time="appointment.time_going"
-    :date="appointment.date_going"
+    :patient_name="appointment.patient_name"
+    :reason_going="appointment.reason_going"
+    :time_going="appointment.time_going"
+    :date_going="appointment.date_going"
+    :id="index"
   />
   <div class="burger">
     <form class="appointment-form">
