@@ -48,40 +48,41 @@ import { useAuthStore } from '../stores/store'
 import { supabase } from '../components/supabase'
 import router from '../router'
 
-
 async function signIn(supabase, userEmail, userPassword) {
   try {
-    await supabase.auth.signInWithPassword({
-      email: userEmail,
-      password: userPassword
-    })
+    const { user, error } = await supabase.auth.signInWithEmailAndPassword(
+      userEmail,
+      userPassword
+    );
 
-    let {
-      data: { user }
-    } = await supabase.auth.getUser()
-    useAuthStore().loadUser(user.id)
-    router.push('home')
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    useAuthStore().loadUser(user.id);
+    router.push('home');
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 
 export default {
   methods: {
-    async login(a) {
-      a.preventDefault()
+    async login(event) {
+      event.preventDefault();
 
-      let userEmail = document.getElementById('email').value
-      let userPassword = document.getElementById('password').value
+      let userEmail = this.email;
+      let userPassword = this.password;
 
       if (userEmail === '' || userPassword === '') {
-        console.log('error')
+        console.log('error');
       } else {
-        signIn(supabase, userEmail, userPassword)
+        signIn(supabase, userEmail, userPassword);
       }
     }
   }
 }
+
 
 </script>
 

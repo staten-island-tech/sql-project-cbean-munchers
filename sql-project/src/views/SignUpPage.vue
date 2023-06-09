@@ -106,64 +106,6 @@ export default {
   },
 };
 
-
-// import { useAuthStore } from '../stores/counter';
-// import router from '../router';
-// import { supabase } from '../lib/supabaseClient';
-
-// async function signUp(supabase, userEmail, userPassword) {
-//   try {
-//     const { user, error } = await supabase.auth.signUp({
-//       email: userEmail,
-//       password: userPassword,
-//     });
-
-//     if (error) {
-//       throw new Error(error.message);
-//     }
-
-//     const { user: signedInUser, error: signInError } = await supabase.auth.signInWithPassword({
-//       email: userEmail,
-//       password: userPassword,
-//     });
-
-//     if (signInError) {
-//       throw new Error(signInError.message);
-//     }
-
-//     const { data, error: getUserError } = await supabase.auth.api.getUser(signedInUser.access_token);
-
-//     if (getUserError) {
-//       throw new Error(getUserError.message);
-//     }
-
-//     const { id: userId, email } = data.user;
-
-//     await supabase.from('profiles').insert([{ user_id: userId, emails: userEmail }]);
-
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// export default {
-//   methods: {
-//     async signup(event) {
-//       event.preventDefault();
-
-//       const userEmail = this.email;
-//       const userPassword = this.password;
-
-//       if (userEmail === '' || userPassword === '') {
-//         console.error('error');
-//       } else {
-//         signUp(supabase, userEmail, userPassword);
-//         useAuthStore();
-//         router.push('home');
-//       }
-//     },
-//   },
-// };
 </script>
 
 
