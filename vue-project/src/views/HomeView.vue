@@ -1,43 +1,73 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { supabase } from '../lib/supabaseClient'
+import AppointmentInfo from '../components/AppointmentInfo.vue'
+import { ref } from 'vue'
+import { supabase } from '../components/supabase.js'
 
-const patientname = ref([])
+const patient_name = ref('')
+const reason_going = ref('')
+const date_going = ref('')
+const time_going = ref('')
 
-async function getData() {
-  const { data } = await supabase.from('patientname').select()
-  patientname.value = data
-  console.log(patientname)
+const allAppointments = ref([])
+
+async function createAppointment() {
+  const { error, data } = await supabase.from('appointments').insert([
+    {
+      patient_name: patient_name.value,
+      reason_going: reason_going.value,
+      time_going: time_going.value,
+      date_going: date_going.value
+    }
+  ])
+  if (error) {
+    console.log(error)
+  }
+  console.log(data)
+}
+async function getAllAppointments() {
+  const { error, data } = await supabase.from('appointments').select('*')
+  if (error) {
+    console.log(error)
+  }
+  console.log(data)
+  allAppointments.value = data
 }
 
-const timegoing = ref([])
-
-async function GetData() {
-  const { data } = await supabase.from('timegoing').select()
-  timegoing.value = data
-  console.log(timegoing)
-}
-
-const dategoing = ref([])
-
-async function GEtData() {
-  const { data } = await supabase.from('dategoing').select()
-  dategoing.value = data
-  console.log(dategoing)
-}
-
-const reasongoing = ref([])
-
-async function GETData() {
-  const { data } = await supabase.from('reasongoing').select()
-  reasongoing.value = data
-  console.log(reasongoing)
-}
-
-onMounted(() => {
-  getData()
-  GetData()
-  GEtData()
-  GETData()
-})
+getAllAppointments()
 </script>
+
+<style>
+.appointment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+</style>
+
+<template>
+  <h1>Home</h1>
+  <AppointmentInfo
+    v-for="(appointment, index) in allAppointments"
+    :key="appointment.patient_name"
+    :patient_name="appointment.patient_name"
+    :reason_going="appointment.reason_going"
+    :time_going="appointment.time_going"
+    :date_going="appointment.date_going"
+    :id="index"
+  />
+  <div class="burger">
+    <form class="appointment-form">
+      <label for="patient_name"> Your Name</label>
+      <input v-model="patient_name" id="name" type="text" placeholder="name" />
+      <label for="reason"> Reason for going </label>
+      <input v-model="reason_going" id="reason" type="text" placeholder="reason going" />
+      <label for="time"> Time you are going </label>
+      <input v-model="time_going" id="time" type="text" placeholder="time going" />
+      <label for="date"> Date you are going </label>
+      <input v-model="date_going" id="date" type="text" placeholder="date going" />
+      <button @click="createAppointment" type="button">Submit Appointment</button>
+    </form>
+  </div>
+</template>
