@@ -47,6 +47,7 @@ async function getAllAppointments() {
 }
 
 onMounted(getAllAppointments)
+
 </script>
 
 <style>

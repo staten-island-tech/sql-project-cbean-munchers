@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import { useAuthStore } from '../stores/counter'
-import { supabase } from '../lib/supabaseClient'
+import { useAuthStore } from '../stores/store'
+import { supabase } from '../components/supabase'
 import router from '../router'
 
 
