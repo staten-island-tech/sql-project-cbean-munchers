@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>SUP</h1>
     <button @click="logout">Logout</button>
   </div>
 </template>
