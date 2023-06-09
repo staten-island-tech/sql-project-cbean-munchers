@@ -26,7 +26,7 @@
                 placeholder="Password"
               />
             </div>
-            <button @click="signUp" value="Sign Up" type="submit" class="button login__submit">
+            <button @click="signup" value="Sign Up" type="submit" class="button login__submit">
               <span class="button__text">Sign Up</span>
               <i class="button_icon"></i>
             </button>
@@ -44,46 +44,132 @@
 </template>
 
 <script>
-import { useUserStore } from '../stores/counter'
-import { supabase } from '../lib/supabaseClient'
-import router from '../router'
+import { useUserStore } from '../stores/counter';
+import router from '../router';
+import { supabase } from '../lib/supabaseClient';
 
 async function signUp(supabase, userEmail, userPassword) {
   try {
-    await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email: userEmail,
-      password: userPassword
-    })
+      password: userPassword,
+    });
 
-    let {
-      data: { user }
-    } = await supabase.auth.getUser()
+    if (error) {
+      throw new Error(error.message);
+    }
 
-    await supabase.from('profiles').insert([{ user_id: user.id, email: userEmail }])
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: userEmail,
+      password: userPassword,
+    });
+
+    if (signInError) {
+      throw new Error(signInError.message);
+    }
+
+    const { data, error: getUserError } = await supabase.auth.getUser();
+
+    if (getUserError) {
+      throw new Error(getUserError.message);
+    }
+
+    const { id: userId } = data;
+
+    await supabase.from('profiles').insert([{ user_id: userId, emails: userEmail }]);
+
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 
 export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
   methods: {
-    async signUp(a) {
-      a.preventDefault()
+    async signup(event) {
+      event.preventDefault();
 
-      let userEmail = document.getElementById('email').value
-      let userPassword = document.getElementById('password').value
+      const userEmail = this.email;
+      const userPassword = this.password;
 
       if (userEmail === '' || userPassword === '') {
-        console.error('error')
+        console.error('error');
       } else {
-        signUp(supabase, userEmail)
-        useUserStore()
-        router.push('home')
+        signUp(supabase, userEmail, userPassword);
+        useUserStore();
+        router.push('home');
       }
-    }
-  }
-}
+    },
+  },
+};
+
+
+// import { useUserStore } from '../stores/counter';
+// import router from '../router';
+// import { supabase } from '../lib/supabaseClient';
+
+// async function signUp(supabase, userEmail, userPassword) {
+//   try {
+//     const { user, error } = await supabase.auth.signUp({
+//       email: userEmail,
+//       password: userPassword,
+//     });
+
+//     if (error) {
+//       throw new Error(error.message);
+//     }
+
+//     const { user: signedInUser, error: signInError } = await supabase.auth.signInWithPassword({
+//       email: userEmail,
+//       password: userPassword,
+//     });
+
+//     if (signInError) {
+//       throw new Error(signInError.message);
+//     }
+
+//     const { data, error: getUserError } = await supabase.auth.api.getUser(signedInUser.access_token);
+
+//     if (getUserError) {
+//       throw new Error(getUserError.message);
+//     }
+
+//     const { id: userId, email } = data.user;
+
+//     await supabase.from('profiles').insert([{ user_id: userId, emails: userEmail }]);
+
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+// export default {
+//   methods: {
+//     async signup(event) {
+//       event.preventDefault();
+
+//       const userEmail = this.email;
+//       const userPassword = this.password;
+
+//       if (userEmail === '' || userPassword === '') {
+//         console.error('error');
+//       } else {
+//         signUp(supabase, userEmail, userPassword);
+//         useUserStore();
+//         router.push('home');
+//       }
+//     },
+//   },
+// };
 </script>
+
+
+
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');

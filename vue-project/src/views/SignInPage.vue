@@ -60,7 +60,7 @@ async function signIn(supabase, userEmail, userPassword) {
       data: { user }
     } = await supabase.auth.getUser()
     useUserStore().loadUser(user.id)
-    router.push('requestlog')
+    router.push('home')
   } catch (error) {
     console.error(error)
   }
