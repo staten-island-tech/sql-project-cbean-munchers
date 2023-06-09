@@ -1,41 +1,28 @@
-import Home from '../pages/Home.vue'
-import LogIn from '../pages/LogIn.vue'
-import SignUp from '../pages/SignUp.vue'
-
 import { createRouter, createWebHistory } from 'vue-router'
-import { userStore } from '../stores/user'
-
-const routes = [
-  { path: '/', component: LogIn },
-  {
-    path: '/home',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: LogIn
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: SignUp
-  }
-]
+import HomeView from '../views/HomeView.vue'
+import signUp from '../components/SignUp.vue'
+import signIn from '../components/SignIn.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes: routes
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/home',
+      name: 'home',
+      component: HomeView
+    },
+
+    {
+      path: '/SignIn',
+      name: 'Signin',
+      component: signIn
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: signUp
+    }
+  ]
 })
 
-router.beforeEach((to, from, next) => {
-  const user = userStore()
-  console.log(to)
-  if (to.name === 'home' && user.user === null) {
-    next('/login')
-  } else {
-    next()
-  }
-})
 export default router
