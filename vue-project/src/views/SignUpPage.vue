@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { useUserStore } from '../stores/counter';
+import { useAuthStore } from '../stores/counter';
 import router from '../router';
 import { supabase } from '../lib/supabaseClient';
 
@@ -99,7 +99,7 @@ export default {
         console.error('error');
       } else {
         signUp(supabase, userEmail, userPassword);
-        useUserStore();
+        useAuthStore();
         router.push('home');
       }
     },
@@ -107,7 +107,7 @@ export default {
 };
 
 
-// import { useUserStore } from '../stores/counter';
+// import { useAuthStore } from '../stores/counter';
 // import router from '../router';
 // import { supabase } from '../lib/supabaseClient';
 
@@ -158,7 +158,7 @@ export default {
 //         console.error('error');
 //       } else {
 //         signUp(supabase, userEmail, userPassword);
-//         useUserStore();
+//         useAuthStore();
 //         router.push('home');
 //       }
 //     },

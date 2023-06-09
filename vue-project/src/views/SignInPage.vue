@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { useUserStore } from '../stores/counter'
+import { useAuthStore } from '../stores/counter'
 import { supabase } from '../lib/supabaseClient'
 import router from '../router'
 
@@ -59,7 +59,7 @@ async function signIn(supabase, userEmail, userPassword) {
     let {
       data: { user }
     } = await supabase.auth.getUser()
-    useUserStore().loadUser(user.id)
+    useAuthStore().loadUser(user.id)
     router.push('home')
   } catch (error) {
     console.error(error)

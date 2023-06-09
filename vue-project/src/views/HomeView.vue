@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { useUserStore } from '../stores/counter';
+import { useAuthStore } from '../stores/counter';
 import router from '../router';
 import { supabase } from '../lib/supabaseClient'; 
 
@@ -14,7 +14,7 @@ export default {
     const logout = async () => {
       try {
         await supabase.auth.signOut(); 
-        useUserStore.user = null; 
+        useAuthStore.user = null; 
 
         router.push('SignInPage');
       } catch (error) {
