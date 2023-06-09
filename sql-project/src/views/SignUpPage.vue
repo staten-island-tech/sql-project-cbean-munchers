@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import { useAuthStore } from '../stores/counter';
+import { useAuthStore } from '../stores/store';
 import router from '../router';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../components/supabase'
 
 async function signUp(supabase, userEmail, userPassword) {
   try {
