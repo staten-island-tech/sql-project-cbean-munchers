@@ -8,13 +8,18 @@
 </template>
 
 <script>
-import { defineProps } from 'vue'
-export const props = defineProps({
-  patient_name: String,
-  reason_going: String,
-  date_going: String,
-  time_going: String
-})
+export default {
+  data() {
+    return {
+      props: {
+        patient_name: String,
+        reason_going: String,
+        date_going: String,
+        time_going: String
+      }
+    }
+  }
+}
 </script>
 
 <style></style>
