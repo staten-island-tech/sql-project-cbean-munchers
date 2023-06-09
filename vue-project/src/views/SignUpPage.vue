@@ -74,9 +74,7 @@ async function signUp(supabase, userEmail, userPassword) {
       throw new Error(getUserError.message);
     }
 
-    const { id: userId } = data;
-
-    await supabase.from('profiles').insert([{ user_id: userId, emails: userEmail }]);
+    await supabase.from('profiles').insert([{ emails: userEmail }]);
 
   } catch (error) {
     console.error(error);
