@@ -1,14 +1,16 @@
 import { defineStore } from 'pinia'
-export const useAuthStore = defineStore({
-  id: 'auth',
+import { supabase } from '../components/supabase.js'
+export const useAuthStore = defineStore('user', {
   state: () => {
     return {
-      currentUser: null
+      user: null,
+      location: null
     }
   },
+
   actions: {
-    loadUser(user) {
-      this.currentUser = user
+    loadUser() {
+      this.currentUser = supabase.auth.user()
     },
     clearUser() {
       this.currentUser = null
