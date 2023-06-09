@@ -1,14 +1,18 @@
 <script setup>
 import AppointmentInfo from '../components/AppointmentInfo.vue'
-import { ref } from 'vue'
+import { useAuthStore } from '../stores/store'
+import { ref, onMounted } from 'vue'
 import { supabase } from '../components/supabase.js'
 
+const currentUser = useAuthStore().currentUser
 const patient_name = ref('')
 const reason_going = ref('')
 const date_going = ref('')
 const time_going = ref('')
+const patient_email = ref('')
 
 const allAppointments = ref([])
+const filteredAppointments = ref([])
 
 async function createAppointment() {
   const { error, data } = await supabase.from('appointments').insert([
@@ -16,7 +20,8 @@ async function createAppointment() {
       patient_name: patient_name.value,
       reason_going: reason_going.value,
       time_going: time_going.value,
-      date_going: date_going.value
+      date_going: date_going.value,
+      patient_email: patient_email.value
     }
   ])
   if (error) {
@@ -24,16 +29,24 @@ async function createAppointment() {
   }
   console.log(data)
 }
+
 async function getAllAppointments() {
-  const { error, data } = await supabase.from('appointments').select('*')
-  if (error) {
-    console.log(error)
+  if (currentUser) {
+    const { error, data } = await supabase
+      .from('profiles')
+      .select('*')
+      .match({ patient_email: currentUser.emails })
+    
+    if (error) {
+      console.log(error)
+    }
+    
+    allAppointments.value = data
+    filteredAppointments.value = data
   }
-  console.log(data)
-  allAppointments.value = data
 }
 
-getAllAppointments()
+onMounted(getAllAppointments)
 </script>
 
 <style>
@@ -55,12 +68,15 @@ getAllAppointments()
     :reason_going="appointment.reason_going"
     :time_going="appointment.time_going"
     :date_going="appointment.date_going"
+    :patient_email="appointment.patient_email"
     :id="index"
   />
   <div class="burger">
     <form class="appointment-form">
       <label for="patient_name"> Your Name</label>
       <input v-model="patient_name" id="name" type="text" placeholder="name" />
+      <label for="patient_email"> Your Email</label>
+      <input v-model="patient_email" id="name" type="text" placeholder="email" />
       <label for="reason"> Reason for going </label>
       <input v-model="reason_going" id="reason" type="text" placeholder="reason going" />
       <label for="time"> Time you are going </label>

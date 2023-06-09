@@ -4,6 +4,7 @@
     <p>{{ reason_going }}</p>
     <p>{{ date_going }}</p>
     <p>{{ time_going }}</p>
+    <p>{{ patient_email }}</p>
   </div>
 </template>
 
@@ -15,7 +16,8 @@ export default {
         patient_name: String,
         reason_going: String,
         date_going: String,
-        time_going: String
+        time_going: String,
+        patient_email: String
       }
     }
   }
